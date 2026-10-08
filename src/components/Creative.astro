@@ -1,0 +1,152 @@
+---
+type Piece =
+  | { type: "reel"; src: string; href: string; club: string; views: string; alt: string; rot: number; sticker?: string }
+  | { type: "art"; src: string; w: number; h: number; label: string; club: string; alt: string; rot: number; wide?: boolean; tall?: boolean; sticker?: string };
+
+const pieces: Piece[] = [
+  { type: "art", tall: true, src: "/img/work/nk-banner.webp", w: 952, h: 1270, label: "core team grid series", club: "nakshatra", alt: "Nine Instagram posts in a 3 by 3 grid that read Nakshatra, Marathi Bhasha aani Vangmay Mandal, Faculty Incharge in glowing gold on orange", rot: -1.5, sticker: "9-post grid" },
+  { type: "reel", src: "/img/work/sc-reel-26k-full.webp", href: "https://www.instagram.com/reel/DV53oQECl2b/", club: "scorpions", views: "26.2K views", alt: "Cover of a Scorpions dance reel at an inter-college fest", rot: 2, sticker: "my most viewed" },
+  { type: "art", src: "/img/work/nk-cast-reveal.webp", w: 720, h: 900, label: "cast reveal post", club: "nakshatra", alt: "Nakshatra cast reveal poster with a temple at golden hour", rot: -2.5 },
+  { type: "art", wide: true, src: "/img/work/sc-teamleads.webp", w: 1400, h: 1240, label: "team leads series", club: "scorpions", alt: "Six blue grid-paper posts: a Team Leads banner and three lead introductions", rot: 1.5, sticker: "full series" },
+  { type: "reel", src: "/img/work/sc-reel-17k-full.webp", href: "https://www.instagram.com/reel/DWIy14VCj9O/", club: "scorpions", views: "17.4K views", alt: "Cover of a Scorpions dance reel on stage", rot: -2 },
+  { type: "art", src: "/img/work/nk-poster-chance.webp", w: 720, h: 900, label: "play poster, fakt ek chance", club: "nakshatra", alt: "Poster for the Marathi play Fakt Ek Chance over red theatre seats", rot: 2.5, sticker: "edited by me" },
+  { type: "reel", src: "/img/work/nk-reel-cast.webp", href: "https://www.instagram.com/reel/DdpCRhgRewJ/", club: "nakshatra", views: "3,478 views", alt: "Cover of a Nakshatra reel with the full cast of a Marathi play", rot: -1.5 },
+  { type: "art", src: "/img/work/nk-poster-bappa.webp", w: 720, h: 960, label: "event poster, majho bappa ilo", club: "nakshatra", alt: "Green Ganeshotsav event poster in Marathi", rot: 2 },
+  { type: "reel", src: "/img/work/nk-reel-group-full.webp", href: "https://www.instagram.com/reel/DNWJudLN3sU/", club: "nakshatra", views: "8,078 views", alt: "Cover of a Nakshatra reel with members posing on stage", rot: 1.5 },
+];
+
+// a ragged paper edge, same every build
+const torn = (() => {
+  let s = 7;
+  const r = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+  const top = Array.from({ length: 41 }, (_, i) => `${(i * 2.5).toFixed(1)}% ${(r() * 14).toFixed(1)}px`);
+  const bot = Array.from({ length: 41 }, (_, i) => `${(100 - i * 2.5).toFixed(1)}% calc(100% - ${(r() * 14).toFixed(1)}px)`);
+  return `polygon(${[...top, ...bot].join(",")})`;
+})();
+---
+<section class="section creative" id="creative" aria-labelledby="creative-title">
+  <div class="wrap">
+    <h2 class="display section-title" id="creative-title" data-split>i also make things <em>look good</em></h2>
+    <p class="lede" data-reveal>posts, grid series and posters i designed, plus reels i edited, for scorpions (our dance club) and nakshatra (the marathi literary committee). tap a reel to watch it.</p>
+  </div>
+
+  <div class="page" style={`--torn:${torn}`} data-reveal>
+    <div class="strip" data-strip tabindex="0" role="region" aria-label="creative work, scroll sideways">
+      <div class="rail">
+      {pieces.map((p) => (
+        <figure class={`piece ${p.type}${p.type === "art" && p.wide ? " wide" : ""}${p.type === "art" && p.tall ? " tall" : ""}`} style={`--rot:${p.rot}deg`}>
+          <span class="tape" aria-hidden="true"></span>
+          {p.type === "reel" ? (
+            <a class="reel-link" href={p.href} target="_blank" rel="noopener">
+              <img src={p.src} width="640" height="1136" alt={p.alt} loading="lazy" />
+              <span class="play" aria-hidden="true">&#9654;</span>
+              <span class="watch">watch the reel &#8599;<small>{p.views}</small></span>
+            </a>
+          ) : (
+            <img class="art-img" src={p.src} width={p.w} height={p.h} alt={p.alt} loading="lazy" />
+          )}
+          <figcaption>{p.type === "reel" ? `reel edit, ${p.club}` : `${p.label}, ${p.club}`}</figcaption>
+          {p.sticker && <span class="sticker" aria-hidden="true">{p.sticker} &#9825;</span>}
+        </figure>
+      ))}
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="arrow" type="button" data-strip-prev aria-label="Previous pieces">&#8592;</button>
+      <div class="progress" aria-hidden="true"><span data-strip-bar></span></div>
+      <button class="arrow" type="button" data-strip-next aria-label="Next pieces">&#8594;</button>
+    </div>
+    <p class="hint" aria-hidden="true"><span class="h-fine">drag, swipe or use the arrows</span><span class="h-touch">swipe sideways for more</span></p>
+  </div>
+</section>
+
+<style>
+  .page {
+    position: relative;
+    margin: clamp(36px, 5vw, 64px) auto 0;
+    width: min(100% - 2 * var(--gutter) + 40px, 100%, var(--max) + 80px);
+    background:
+      radial-gradient(120% 80% at 10% 0%, #fffaf7, transparent 60%),
+      var(--paper);
+    color: var(--ink-on-paper);
+    clip-path: var(--torn);
+    padding: 40px 0 36px;
+  }
+  .strip {
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-padding-inline: clamp(24px, 4vw, 56px);
+    scrollbar-width: none;
+  }
+  /* inner rail: Draggable (type scrollLeft) wraps the strip's children, so layout lives here */
+  .rail {
+    display: flex; align-items: center; gap: clamp(30px, 3.2vw, 48px);
+    width: max-content;
+    padding: 56px clamp(24px, 4vw, 56px) 36px;
+  }
+  .strip::-webkit-scrollbar { display: none; }
+  .strip:focus-visible { outline-offset: -6px; }
+  .piece {
+    flex: none; position: relative; scroll-snap-align: start;
+    rotate: var(--rot);
+    transition: rotate var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+  }
+  @media (hover: hover) { .piece:hover { rotate: 0deg; transform: translateY(-6px); } }
+  .art { width: clamp(220px, 21vw, 290px); }
+  .art.wide { width: clamp(300px, 40vw, 560px); }
+  .art.tall { width: clamp(250px, 24vw, 340px); }
+  .art-img { width: 100%; border: 10px solid #fff; box-shadow: 0 14px 30px rgb(58 12 23 / .22); }
+  .reel { width: clamp(170px, 14vw, 200px); }
+  .reel-link {
+    display: block; position: relative; border-radius: 18px; overflow: hidden; text-decoration: none;
+    border: 6px solid var(--wine-800); background: #000;
+    box-shadow: 0 16px 34px rgb(58 12 23 / .3);
+  }
+  .reel-link img { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; }
+  .play {
+    position: absolute; left: 50%; top: 44%; translate: -50% -50%;
+    width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center;
+    background: rgb(246 217 222 / .9); color: var(--wine-800); font-size: 18px; padding-left: 4px;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .watch {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 12px 12px;
+    background: linear-gradient(transparent, rgb(31 5 11 / .92) 45%);
+    color: var(--cream); font-size: 14px; font-weight: 500; display: grid; gap: 2px;
+  }
+  .watch small { color: var(--rose); font-size: 12px; font-weight: 400; }
+  .reel-link:hover .play, .reel-link:focus-visible .play { transform: scale(1.12); }
+  .tape {
+    position: absolute; top: -14px; left: 50%; z-index: 2; width: 92px; height: 26px;
+    translate: -50% 0; rotate: calc(var(--rot) * -2);
+    background: rgb(232 163 176 / .7);
+  }
+  figcaption { margin-top: 14px; font-family: var(--font-note); font-size: 14px; text-align: center; }
+  .sticker {
+    position: absolute; left: -12px; top: -34px; z-index: 3;
+    background: #9b1830; color: var(--cream); rotate: -8deg;
+    font: italic 400 15px/1 var(--font-display);
+    padding: 9px 13px; border-radius: 999px;
+    box-shadow: 0 8px 16px rgb(58 12 23 / .3);
+  }
+
+  .controls { display: flex; align-items: center; gap: 16px; padding: 4px clamp(24px, 4vw, 56px) 0; }
+  .arrow {
+    width: 44px; height: 44px; border-radius: 50%; flex: none;
+    border: 1px solid rgb(58 12 23 / .35); background: transparent; color: var(--ink-on-paper);
+    font-size: 18px; cursor: pointer;
+    transition: background var(--dur-quick), color var(--dur-quick), transform var(--dur-instant);
+  }
+  .arrow:hover { background: var(--ink-on-paper); color: var(--paper); }
+  .arrow:active { transform: scale(.94); }
+  .arrow:disabled { opacity: .3; cursor: default; background: transparent; color: var(--ink-on-paper); }
+  .progress { flex: 1; height: 2px; background: rgb(58 12 23 / .15); border-radius: 2px; overflow: hidden; }
+  .progress span { display: block; height: 100%; width: 100%; background: #9b1830; transform-origin: 0 50%; transform: scaleX(.2); }
+  .hint { padding: 10px clamp(24px, 4vw, 56px) 0; font-family: var(--font-note); font-size: 13px; opacity: .65; }
+  .h-touch { display: none; }
+  @media (hover: none) {
+    .controls .arrow { display: none; }
+    .h-fine { display: none; }
+    .h-touch { display: inline; }
+  }
+</style>

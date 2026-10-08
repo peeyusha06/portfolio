@@ -1,0 +1,42 @@
+---
+import "@fontsource/dm-serif-display/latin-400.css";
+import "@fontsource/dm-serif-display/latin-400-italic.css";
+import "@fontsource-variable/outfit/wght.css";
+import "@fontsource/special-elite/latin-400.css";
+import "../styles/global.css";
+
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1f050b" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/img/peeyusha-880.webp" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%233d0b16'/><text x='50%' y='58%' text-anchor='middle' font-family='Georgia,serif' font-size='34' fill='%23e8a3b0'>pp</text></svg>" />
+    <link rel="preload" as="image" href="/img/peeyusha-880.webp" imagesrcset="/img/peeyusha-480.webp 480w, /img/peeyusha-880.webp 880w" imagesizes="(max-width: 860px) 70vw, 30vw" fetchpriority="high" />
+    <script is:inline>
+      // start states are hidden only when motion will run; a 3s failsafe shows everything if JS breaks
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("motion-ready");
+        setTimeout(() => {
+          const h = document.documentElement;
+          if (!h.classList.contains("motion-live")) h.classList.add("motion-failsafe");
+        }, 3000);
+      }
+    </script>
+  </head>
+  <body>
+    <slot />
+    <script>
+      import { initMotion } from "../motion/init";
+      initMotion();
+    </script>
+  </body>
+</html>

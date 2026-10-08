@@ -1,0 +1,141 @@
+---
+const notes = [
+  { title: "currently learning", body: "n8n, ai agents and webhooks, so my automations can run while i sleep", tone: "paper", rot: -3 },
+  { title: "by day", body: "cleaning survey data and arguing with roc curves", tone: "rose", rot: 2 },
+  { title: "by night", body: "editing reels and baking something with chocolate", tone: "cherry", rot: -1.5 },
+  { title: "fun fact", body: "i look calm. i am not. ask me one question and i will yap for an hour", tone: "paper", rot: 2.5 },
+  { title: "best part of a project", body: "the moment messy data finally lines up", tone: "rose", rot: -2 },
+  { title: "always down for", body: "a hackathon, a dance practice or a long debugging session", tone: "cherry", rot: 1.5 },
+];
+
+const stickers = [
+  { src: "/img/scrap/red-lips.webp", w: 308, h: 258, style: "left:1.59%;top:4.12%;width:15.6%;rotate:-20deg;z-index:10", cls: "" },
+  { src: "/img/scrap/main-character.webp", w: 326, h: 323, style: "left:62.83%;top:6.95%;width:14%;rotate:-18deg;z-index:16", cls: "" },
+  { src: "/img/scrap/pink-camera.webp", w: 320, h: 314, style: "left:79.6%;top:13.25%;width:14%;rotate:8deg;z-index:15", cls: "" },
+  { src: "/img/scrap/pink-lily.webp", w: 420, h: 370, style: "left:66.46%;top:21.76%;width:14%;rotate:0deg;z-index:14", cls: "" },
+  { src: "/img/scrap/pink-lipstick.webp", w: 316, h: 255, style: "left:81.76%;top:27.24%;width:14%;rotate:0deg;z-index:13", cls: "" },
+  { src: "/img/scrap/red-star.webp", w: 193, h: 203, style: "left:52.67%;top:36.47%;width:13.2%;rotate:32deg;z-index:7", cls: "" },
+  { src: "/img/scrap/cherry-bow.webp", w: 243, h: 360, style: "left:16.76%;top:62.32%;width:14%;rotate:-36deg;z-index:27", cls: "" },
+  { src: "/img/scrap/music-note.webp", w: 127, h: 144, style: "left:7.51%;top:66.77%;width:10%;rotate:28deg;z-index:25", cls: "" },
+  { src: "/img/scrap/red-heart.webp", w: 234, h: 223, style: "left:16.01%;top:84.67%;width:5.14%;rotate:-68deg;z-index:12", cls: "" },
+  { src: "/img/scrap/red-camera.webp", w: 230, h: 237, style: "left:79.51%;top:84.03%;width:16.97%;rotate:10deg;z-index:4", cls: "" },
+];
+
+// ragged paper edges, same every build
+const rand = (seed: number) => () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+const tornBox = (seed: number, depth = 6, steps = 14) => {
+  const r = rand(seed);
+  const pts: string[] = [];
+  for (let i = 0; i <= steps; i++) pts.push(`${(i * 100) / steps}% ${(r() * depth).toFixed(1)}px`);
+  for (let i = 1; i <= steps; i++) pts.push(`calc(100% - ${(r() * depth).toFixed(1)}px) ${(i * 100) / steps}%`);
+  for (let i = steps - 1; i >= 0; i--) pts.push(`${(i * 100) / steps}% calc(100% - ${(r() * depth).toFixed(1)}px)`);
+  for (let i = steps - 1; i >= 1; i--) pts.push(`${(r() * depth).toFixed(1)}px ${(i * 100) / steps}%`);
+  return `polygon(${pts.join(",")})`;
+};
+---
+<section class="section fun" aria-labelledby="fun-title">
+  <div class="wrap">
+    <h2 class="display section-title" id="fun-title" data-split>the <em>yapper</em> corner</h2>
+    <p class="lede" data-reveal>a few notes about me. on a computer, you can drag them around.</p>
+
+    <div class="layout">
+      <div class="collage" data-reveal>
+        <figure class="snap one" style={`--edge:${tornBox(3)}`}>
+          <img src="/img/fun-viewpoint.webp" width="720" height="900" alt="Peeyusha posing at a hilltop viewpoint with a valley and lake behind her" loading="lazy" />
+        </figure>
+        <figure class="snap two" style={`--edge:${tornBox(8)}`}>
+          <img src="/img/fun-fence.webp" width="720" height="900" alt="Peeyusha in sunglasses posing by a white picket fence" loading="lazy" />
+        </figure>
+        {stickers.map((st) => <img class={`el ${st.cls}`} src={st.src} width={st.w} height={st.h} style={st.style} alt="" loading="lazy" />)}
+        <p class="tag display" aria-hidden="true">me, off duty <span>&#8600;</span></p>
+      </div>
+
+      <div class="board" data-board>
+        {notes.map((n) => (
+          <div class={`note ${n.tone}`} style={`--rot:${n.rot}deg`} data-note>
+            {n.title === "best part of a project" && <img class="note-heart" src="/img/scrap/red-heart.webp" width="234" height="223" alt="" loading="lazy" />}
+            <p class="t">{n.title}</p>
+            <p class="b">{n.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .layout {
+    margin-top: clamp(40px, 5vw, 64px);
+    display: grid; gap: clamp(32px, 4vw, 56px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    align-items: center;
+  }
+
+  /* scrapbook page: one minimal paper, stickers only on the photo corners */
+  .collage {
+    position: relative; z-index: 2; aspect-ratio: 4 / 5;
+    background: #fff url("/img/scrap/paper-grid.webp") center / cover;
+    border-radius: 6px;
+    box-shadow: 0 24px 60px rgb(10 0 3 / .5);
+    overflow: hidden;
+  }
+  .el { position: absolute; height: auto; pointer-events: none; filter: drop-shadow(0 6px 10px rgb(58 12 23 / .22)); }
+  .snap {
+    position: absolute; background: #fff; padding: 10px 10px 14px; z-index: 2;
+    clip-path: var(--edge);
+    filter: drop-shadow(0 10px 18px rgb(58 12 23 / .28));
+    transition: rotate var(--dur-base) var(--ease-out), scale var(--dur-base) var(--ease-out);
+  }
+  .snap img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .one { width: 54.04%; left: 5.15%; top: 5.77%; rotate: -5deg; }
+  .two { width: 54.72%; left: 41.5%; top: 41.98%; rotate: 2deg; z-index: 3; }
+  @media (hover: hover) {
+    .snap:hover { rotate: 0deg; scale: 1.03; z-index: 6; }
+  }
+  .tag {
+    position: absolute; left: 17.46%; top: 82.75%; z-index: 11;
+    display: inline-flex; align-items: center; gap: .3em;
+    background: #6e1a2a; color: var(--blush);
+    font-style: italic; font-size: clamp(18px, 1.9vw, 26px); line-height: 1;
+    padding: .38em .62em .42em; border-radius: 999px; rotate: -15deg;
+    box-shadow: 0 6px 14px rgb(58 12 23 / .3);
+  }
+  .tag span { font-style: normal; font-size: .78em; translate: 0 .06em; }
+
+  /* notes */
+  .board {
+    display: grid; gap: 28px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: center;
+    position: relative; z-index: 1;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .board { padding: 16px; border-radius: var(--radius); border: 1px dashed rgb(232 163 176 / .18); }
+  }
+  .note {
+    padding: 26px 22px 30px; position: relative;
+    rotate: var(--rot);
+    box-shadow: 0 16px 34px rgb(10 0 3 / .45);
+    font-family: var(--font-note); line-height: 1.5;
+    touch-action: auto;
+  }
+  .note::before {
+    content: ""; position: absolute; top: -12px; left: 34%; width: 32%; height: 24px; rotate: -4deg;
+    background: rgb(246 217 222 / .55);
+  }
+  .note-heart { position: absolute; top: -22px; right: -18px; width: 58px; height: auto; rotate: 12deg; pointer-events: none; filter: drop-shadow(0 6px 10px rgb(10 0 3 / .35)); }
+  .paper { background: var(--paper); color: var(--ink-on-paper); }
+  .rose { background: var(--rose); color: var(--wine-900); }
+  .cherry { background: #9b1830; color: var(--cream); }
+  .t { font-family: var(--font-body); font-weight: 600; font-size: 15px; letter-spacing: .01em; margin-bottom: 8px; }
+  .b { font-size: 16px; }
+  @media (hover: hover) and (pointer: fine) { .note { cursor: grab; } .note:active { cursor: grabbing; } }
+
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .collage { max-width: 520px; width: 100%; margin-inline: auto; }
+  }
+  @media (max-width: 560px) {
+    .board { grid-template-columns: 1fr; }
+  }
+</style>

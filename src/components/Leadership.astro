@@ -1,0 +1,59 @@
+<section class="section lead" aria-labelledby="lead-title">
+  <div class="wrap">
+    <h2 class="display section-title" id="lead-title" data-split>Off the <em>laptop</em></h2>
+    <div class="bento">
+      <article class="cell teach" data-reveal>
+        <span class="display big" data-count="4.52">4.52</span>
+        <p class="unit">out of 5</p>
+        <h3>Arduino workshop trainer</h3>
+        <p>Taught 21 school students over a two-day workshop for the AI Robotics Cell, KJSIT.</p>
+      </article>
+      <article class="cell dance" data-reveal>
+        <img src="/img/work/sc-peeyusha-colead.webp" width="720" height="959" alt="Scorpions KJSIT poster introducing Peeyusha Patki as Co-Lead" loading="lazy" />
+        <div>
+          <h3>Co-Lead, Scorpions</h3>
+          <p>KJSIT's official dance club, tenure 25-26. Yes, I also edited the poster.</p>
+        </div>
+      </article>
+      <article class="cell hack" data-reveal>
+        <h3 class="display">Winner</h3>
+        <p>KJSIT Campus Hackathon 2025</p>
+      </article>
+      <article class="cell know" data-reveal>
+        <span class="display big" data-count="1200">1,200+</span>
+        <h3>KnowCode 3.0 registrations</h3>
+        <p>On the organising team for S4DS's hackathon.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bento {
+    margin-top: clamp(40px, 5vw, 72px);
+    display: grid; gap: 18px;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    grid-template-areas: "teach dance hack" "teach dance know";
+  }
+  .cell { border-radius: var(--radius); padding: clamp(22px, 2.6vw, 36px); position: relative; overflow: hidden; }
+  .teach { grid-area: teach; background: var(--rose); color: var(--wine-900); display: flex; flex-direction: column; justify-content: flex-end; min-height: 420px; }
+  .teach .big { font-size: clamp(96px, 13vw, 200px); line-height: .85; }
+  .unit { font-style: italic; margin-bottom: auto; }
+  .teach h3 { font: 600 22px/1.2 var(--font-body); margin-top: 28px; }
+  .teach p:last-child { margin-top: 6px; }
+  .dance { grid-area: dance; padding: 0; display: grid; grid-template-rows: 1fr auto; background: var(--wine-800); border: 1px solid rgb(232 163 176 / .14); }
+  .dance img { width: 100%; height: 100%; object-fit: cover; object-position: top; min-height: 0; }
+  .dance div { padding: 20px 22px 24px; }
+  .dance h3, .know h3 { font: 600 20px/1.25 var(--font-body); color: var(--cream); }
+  .dance p, .know p, .hack p { color: var(--blush-dim); margin-top: 4px; font-size: .95em; }
+  .hack { grid-area: hack; background: var(--paper); color: var(--ink-on-paper); }
+  .hack h3 { font-size: clamp(44px, 5vw, 76px); line-height: 1; color: #9b1830; }
+  .hack p { color: var(--ink-on-paper); }
+  .know { grid-area: know; background: linear-gradient(150deg, var(--wine-600), var(--wine-800)); border: 1px solid rgb(232 163 176 / .14); }
+  .know .big { font-size: clamp(48px, 5vw, 80px); color: var(--rose); line-height: 1; }
+  @media (max-width: 900px) {
+    .bento { grid-template-columns: 1fr; grid-template-areas: "teach" "dance" "hack" "know"; }
+    .teach { min-height: 320px; }
+    .dance img { max-height: 520px; }
+  }
+</style>

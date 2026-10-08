@@ -1,0 +1,35 @@
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="mark display">pp<span class="sr"> Peeyusha Patki, back to top</span></a>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#creative">Creative</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: fixed; inset: 0 0 auto; z-index: 40;
+    height: 68px; display: flex; align-items: center;
+    background: linear-gradient(rgb(31 5 11 / .96) 40%, rgb(31 5 11 / 0));
+  }
+  .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+  .mark { font-size: 30px; color: var(--rose); text-decoration: none; line-height: 1; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  ul { display: flex; gap: clamp(14px, 2.5vw, 36px); list-style: none; padding: 0; }
+  a { text-decoration: none; font-size: 15px; }
+  ul a { position: relative; color: var(--blush-dim); transition: color var(--dur-quick); }
+  ul a::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px;
+    background: var(--rose); transform: scaleX(0); transform-origin: right;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  ul a:hover { color: var(--blush); }
+  ul a:hover::after { transform: scaleX(1); transform-origin: left; }
+  @media (max-width: 520px) { li:nth-child(2) { display: none; } }
+</style>

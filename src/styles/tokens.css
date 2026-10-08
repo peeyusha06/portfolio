@@ -1,0 +1,30 @@
+:root {
+  /* colour: wine field, blush ink, one rose accent */
+  --wine-950: #1f050b;
+  --wine-900: #2e0811;
+  --wine-800: #3d0b16;
+  --wine-700: #5a1424;
+  --wine-600: #6e1a2a;
+  --rose: #e8a3b0;
+  --blush: #f6d9de;
+  --blush-dim: #d9b3ba;
+  --cream: #fbf1ee;
+  --paper: #fff6f3;
+  --ink-on-paper: #3a0c17;
+
+  --font-display: "DM Serif Display", "Times New Roman", serif;
+  --font-body: "Outfit Variable", system-ui, sans-serif;
+  --font-note: "Special Elite", "Courier New", monospace;
+
+  /* motion tokens, mirrored in src/motion/tokens.ts */
+  --dur-instant: 120ms;
+  --dur-quick: 240ms;
+  --dur-base: 480ms;
+  --dur-slow: 800ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-signature: cubic-bezier(0.625, 0.05, 0, 1);
+
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1360px;
+  --radius: 14px;
+}

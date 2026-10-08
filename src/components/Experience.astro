@@ -1,0 +1,37 @@
+---
+const jobs = [
+  { when: "Aug to Sep 2026", role: "Data / AI Intern", org: "TaskLanceAI, remote", text: "Standardised messy city names in e-commerce orders with PySpark, using normalisation, reference mappings and fuzzy matching, across Bronze, Silver and Gold layers in Databricks." },
+  { when: "2025", role: "Data collection and cleaning", org: "Family business, Ayurvedic publishing", text: "Built a 3,000+ contact list of doctors and students from public sources, cleaned it in Excel and ran repeated WhatsApp campaigns that got faster and more accurate each round." },
+  { when: "Jul 2025 to now", role: "Public Relations Officer", org: "Nakshatra, Marathi literary committee", text: "Outreach, announcements and coordination for events, plus designing posts and editing reels." },
+  { when: "Jul 2025 to now", role: "Digital Cinematography and Creative Member", org: "S4DS, KJSIT", text: "Photography, Canva designs and promo content for events like the KnowCode 3.0 hackathon." },
+  { when: "Oct 2024 to Jul 2025", role: "Organising Team Member", org: "Students' Council, KJSIT", text: "Planning and running college events with a big team." },
+];
+---
+<section class="section" id="experience">
+  <div class="wrap">
+    <h2 class="display section-title" data-split>Where I've <em>worked</em></h2>
+    <ol class="timeline">
+      {jobs.map((j) => (
+        <li data-reveal>
+          <p class="when">{j.when}</p>
+          <div>
+            <h3>{j.role}</h3>
+            <p class="org">{j.org}</p>
+            <p class="text">{j.text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .timeline { list-style: none; padding: 0; margin-top: clamp(40px, 5vw, 72px); display: grid; gap: clamp(28px, 4vw, 44px); }
+  li { display: grid; grid-template-columns: 220px 1fr; gap: 24px; }
+  .when { color: var(--rose); font-size: 15px; padding-top: 6px; }
+  h3 { font: 500 clamp(20px, 2vw, 26px)/1.25 var(--font-body); color: var(--cream); }
+  .org { color: var(--blush-dim); margin-top: 2px; }
+  .text { margin-top: 8px; max-width: 62ch; color: var(--blush-dim); font-size: .95em; }
+  li:first-child h3 { font-family: var(--font-display); font-size: clamp(28px, 3vw, 40px); }
+  @media (max-width: 700px) { li { grid-template-columns: 1fr; gap: 4px; } }
+</style>

@@ -1,0 +1,68 @@
+<section class="hero wrap" id="top">
+  <div class="copy">
+    <p class="eyebrow" data-hero="eyebrow">AI &amp; Data Science, KJSIT Mumbai</p>
+    <h1 class="display name" data-hero="name">Peeyusha<br />Patki</h1>
+    <p class="display punch" data-hero="punch">Academic weapon. <em class="glitter">certified yapper.</em></p>
+    <p class="sub" data-hero="sub">I build ML models, AI apps and dashboards, then explain them in plain words.</p>
+    <div class="ctas" data-hero="ctas">
+      <a class="btn btn-solid" href="#work" data-magnetic>See my work</a>
+      <a class="btn btn-line" href="/Peeyusha_Patki_Resume.pdf" target="_blank" rel="noopener" data-magnetic>Resume</a>
+    </div>
+  </div>
+
+  <figure class="polaroid" data-hero="polaroid" data-tilt>
+    <img
+      src="/img/peeyusha-880.webp"
+      srcset="/img/peeyusha-480.webp 480w, /img/peeyusha-880.webp 880w"
+      sizes="(max-width: 860px) 70vw, 30vw"
+      width="880" height="1100"
+      alt="Peeyusha Patki smiling, in a brown striped shirt, in warm indoor light"
+      fetchpriority="high"
+    />
+    <figcaption>fuelled by coffee + CatBoost</figcaption>
+  </figure>
+</section>
+
+<style>
+  .hero {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    align-items: center;
+    gap: clamp(24px, 5vw, 80px);
+    padding-top: 96px;
+    padding-bottom: 48px;
+  }
+  .eyebrow { font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--rose); }
+  .name { font-size: clamp(60px, min(11.5vw, 19dvh), 184px); line-height: .9; color: var(--cream); margin-top: 14px; }
+  .punch { font-size: clamp(24px, min(3.2vw, 5.6dvh), 52px); margin-top: 20px; line-height: 1.1; padding-bottom: .1em; }
+  .punch em { font-style: italic; white-space: nowrap; }
+  .sub { margin-top: 18px; max-width: 34ch; color: var(--blush-dim); }
+  .ctas { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+
+  .polaroid {
+    justify-self: center;
+    width: min(100%, 420px, 52dvh);
+    background: var(--paper);
+    padding: 16px 16px 64px;
+    border-radius: 4px;
+    transform: rotate(4deg);
+    box-shadow: 0 30px 70px rgb(10 0 3 / .55), 0 0 0 1px rgb(255 255 255 / .04);
+    position: relative;
+  }
+  .polaroid::before {
+    content: ""; position: absolute; top: -14px; left: 50%; width: 120px; height: 30px;
+    translate: -50% 0; rotate: -3deg;
+    background: rgb(232 163 176 / .75);
+  }
+  .polaroid img { aspect-ratio: 4 / 5; object-fit: cover; width: 100%; }
+  figcaption {
+    position: absolute; left: 0; right: 0; bottom: 20px; text-align: center;
+    font-family: var(--font-note); color: var(--ink-on-paper); font-size: 15px;
+  }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; padding-top: 104px; }
+    .polaroid { width: min(78%, 340px); margin-top: 8px; }
+  }
+</style>

@@ -1,0 +1,28 @@
+---
+const words = ["academic weapon", "data nerd", "certified yapper", "dance co-lead", "makes everything pink", "coffee first"];
+const run = [...words, ...words];
+---
+<div class="clip" aria-hidden="true">
+  <div class="marquee">
+    <div class="track">
+      {run.map((w) => <span>{w}<i>&#10047;</i></span>)}
+    </div>
+  </div>
+</div>
+
+<style>
+  .clip { overflow: hidden; padding-block: 24px; }
+  .marquee {
+    background: var(--rose); color: var(--wine-900);
+    overflow: hidden; white-space: nowrap;
+    padding-block: 14px;
+    rotate: -1.5deg; margin-inline: -2vw;
+  }
+  .track { display: inline-flex; }
+  span { font: italic 400 clamp(22px, 3vw, 40px)/1 var(--font-display); padding-inline: .6em; display: inline-flex; align-items: center; gap: 1.2em; }
+  i { font-style: normal; font-size: .6em; }
+  @media (prefers-reduced-motion: no-preference) {
+    .track { animation: slide 32s linear infinite; }
+  }
+  @keyframes slide { to { transform: translateX(-50%); } }
+</style>
